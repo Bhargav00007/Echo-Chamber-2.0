@@ -1,4 +1,4 @@
-import { NextAuthOptions, Session, User as AdapterUser } from "next-auth";
+import { NextAuthOptions, User as AdapterUser } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 
