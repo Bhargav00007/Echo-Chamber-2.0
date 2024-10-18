@@ -7,27 +7,29 @@ const Dashboard = () => {
   const { data: session } = useSession();
 
   return (
-    <>
+    <div className="px-5 ">
       {session ? (
         <>
           <img
             src={session.user?.image as string}
             className="rounded-full h-20 w-20 border-2 border-black"
           ></img>
-          <h1 className="text-3xl text-green-500 font-bold">
+          <h1 className="lg:text-3xl text-2xl text-green-500 font-bold">
             Welcome back, {session.user?.name}
           </h1>
-          <p className="text-2xl font-semibold">{session.user?.email}</p>
+          <p className="lg:text-2xl text-xl font-semibold">
+            {session.user?.email}
+          </p>
           <button
             onClick={() => signOut()}
-            className="border border-black rounded-lg bg-red-400 px-5 py-1 hover:bg-transparent transition-all duration-300"
+            className="border border-black rounded-lg bg-red-400 px-5 py-1 my-2 hover:bg-transparent transition-all duration-300"
           >
             Sign Out
           </button>
         </>
       ) : (
         <>
-          <h1 className="text-3xl text-red-500 font-bold">
+          <h1 className="lg:text-3xl text-2xl text-red-500  font-bold m-5">
             You're not logged in
           </h1>
           <div className="flex space-x-5">
@@ -46,7 +48,7 @@ const Dashboard = () => {
           </div>
         </>
       )}
-    </>
+    </div>
   );
 };
 

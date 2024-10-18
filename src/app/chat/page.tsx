@@ -1,7 +1,7 @@
 "use client";
 
 import { useSession, getSession } from "next-auth/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ImSpinner2 } from "react-icons/im";
 
 interface ExtendedUser {
@@ -9,10 +9,6 @@ interface ExtendedUser {
   name?: string | null;
   email?: string | null;
   image?: string | null;
-}
-
-interface ExtendedSession {
-  user: ExtendedUser;
 }
 
 interface Message {
@@ -27,17 +23,19 @@ const Chat = () => {
   const [message, setMessage] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const messagesContainerRef = useRef<HTMLDivElement | null>(null);
+  const userScrolled = useRef<boolean>(false);
 
   useEffect(() => {
     if (status === "authenticated") {
       fetchMessages();
+      scrollToBottom(); // Scroll to bottom on first load
 
-      // Poll for new messages every 5 seconds (5000 ms)
       const intervalId = setInterval(() => {
-        fetchMessages(false); // Set loading to false during polling
+        fetchMessages(false);
       }, 5000);
 
-      // Clear the interval when the component unmounts
       return () => clearInterval(intervalId);
     }
   }, [status]);
@@ -50,7 +48,7 @@ const Chat = () => {
       const data = await res.json();
 
       if (Array.isArray(data)) {
-        setMessages(data); // Update the messages state with the latest messages
+        setMessages(data);
       } else {
         console.error("Fetched data is not an array:", data);
       }
@@ -71,16 +69,14 @@ const Chat = () => {
       return;
     }
 
-    const { id, name, image } = currentSession.user as ExtendedUser; // Cast session.user to ExtendedUser
+    const { id, name, image } = currentSession.user as ExtendedUser;
 
     const msg: Message = {
-      userId: id || " ", // Use the userId from the session
+      userId: id || " ",
       userName: name || "Anonymous",
-      userImage: image || "path/to/default/image.png", // Fallback image
+      userImage: image || "/assets/profileimage.jpg",
       content: message,
     };
-
-    console.log("Sending message:", msg); // Log the message being sent
 
     try {
       const response = await fetch("/api/messages", {
@@ -95,59 +91,118 @@ const Chat = () => {
         throw new Error(`Failed to send message: ${response.statusText}`);
       }
 
-      setMessages((prevMessages) => [...prevMessages, msg]); // Add message to state
+      setMessages((prevMessages) => [...prevMessages, msg]);
+      scrollToBottom(); // Scroll to the bottom only after sending a message
     } catch (error) {
       console.error("Error sending message:", error);
     }
 
-    setMessage(""); // Clear the input field
+    setMessage(""); // Clear input
   };
+
+  const scrollToBottom = () => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleScroll = () => {
+    if (!messagesContainerRef.current) return;
+
+    const { scrollTop, clientHeight, scrollHeight } =
+      messagesContainerRef.current;
+
+    // If the user is near the bottom, set userScrolled to false
+    if (scrollHeight - scrollTop - clientHeight < 100) {
+      userScrolled.current = false; // Near bottom
+    } else {
+      userScrolled.current = true; // Not near bottom
+    }
+  };
+
+  useEffect(() => {
+    // Scroll to bottom whenever messages are updated
+    if (messages.length && !userScrolled.current) {
+      scrollToBottom();
+    }
+  }, [messages]);
 
   if (loading) {
     return (
-      <button
-        type="button"
-        className="bg-indigo-500 flex rounded-xl px-3 py-2 border border-black"
-        disabled
-      >
-        <ImSpinner2 className="animate-spin h-5 w-5 mr-3" />
-        Loading Message...
-      </button>
+      <div>
+        <button
+          type="button"
+          className="bg-indigo-500 flex rounded-xl px-3 py-2 mx-5 border border-black"
+          disabled
+        >
+          <ImSpinner2 className="animate-spin h-5 w-5 mr-3" />
+          Loading Message...
+        </button>
+        <p className="text-lg  py-5  mx-5">
+          You need to be logged in to view messages...
+        </p>
+      </div>
     );
   }
 
   if (status !== "authenticated") {
-    return <p>You are not authenticated. Please sign in.</p>;
+    return (
+      <p className="text-center">You are not authenticated. Please sign in.</p>
+    );
   }
 
   return (
-    <div>
-      <h2>Chat Room</h2>
-      <div>
+    <div className="flex flex-col h-screen">
+      <h2 className="text-center text-xl py-4">Chat Chamber</h2>
+
+      {/* Messages container */}
+      <div
+        className="flex-grow overflow-y-auto px-4 py-2"
+        onScroll={handleScroll}
+        ref={messagesContainerRef}
+      >
         {messages.length > 0 ? (
           messages.map((msg, index) => (
-            <div key={index} className="message">
+            <div
+              key={index}
+              className="message flex items-start space-x-4 my-2"
+            >
               <img
                 src={msg.userImage}
                 alt={msg.userName}
                 className="h-[40px] w-[40px] rounded-full"
               />
-              <div>
-                <strong>{msg.userName}:</strong> {msg.content}
+              <div className="flex-grow">
+                <strong className="text-sm md:text-base">
+                  {msg.userName}:
+                </strong>
+                <span className="block text-sm md:text-base max-w-xs md:max-w-md lg:max-w-lg xl:max-w-xl break-words">
+                  {msg.content}
+                </span>
               </div>
             </div>
           ))
         ) : (
-          <p>No messages available</p>
+          <p className="text-center">No messages available</p>
         )}
+        <div ref={messagesEndRef} />
       </div>
-      <input
-        type="text"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        placeholder="Enter your message..."
-      />
-      <button onClick={sendMessage}>Send</button>
+
+      <div className="sticky bottom-0 bg-white p-4 flex items-center space-x-2">
+        <input
+          type="text"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          placeholder="Enter your message..."
+          className="flex-grow border rounded-lg p-2"
+        />
+        <button
+          onClick={sendMessage}
+          className="bg-indigo-600 text-white px-4 py-2 rounded-lg"
+        >
+          Send
+        </button>
+      </div>
     </div>
   );
 };
