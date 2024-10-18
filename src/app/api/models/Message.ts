@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema, model, models } from "mongoose";
+import { Document, Schema, model, models } from "mongoose";
 
 // Define the message interface
 export interface IMessage extends Document {

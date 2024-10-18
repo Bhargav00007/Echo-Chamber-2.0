@@ -8,9 +8,6 @@ interface ExtendedUser extends AdapterUser {
 }
 
 // Extend the Session interface to include ExtendedUser
-interface ExtendedSession extends Session {
-  user: ExtendedUser;
-}
 
 export const authOptions: NextAuthOptions = {
   providers: [

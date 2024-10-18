@@ -19,7 +19,7 @@ interface Message {
 }
 
 const Chat = () => {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const [message, setMessage] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState<boolean>(true);

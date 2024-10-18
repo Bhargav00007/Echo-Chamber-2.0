@@ -6,19 +6,19 @@ if (!MONGODB_URI) {
   throw new Error("Please define the MONGODB_URI environment variable");
 }
 
-// Declare a custom type for the global object
+// Declare a custom type for the global object with `globalThis`
 declare global {
-  var mongoose: {
+  var _mongoose: {
     conn: mongoose.Connection | null;
     promise: Promise<mongoose.Connection> | null;
   };
 }
 
-// Global variable cache
-let cached = global.mongoose;
+// Use `globalThis` for caching the connection
+let cached = globalThis._mongoose;
 
 if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
+  cached = globalThis._mongoose = { conn: null, promise: null };
 }
 
 async function dbConnect() {

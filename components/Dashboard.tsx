@@ -30,7 +30,7 @@ const Dashboard = () => {
       ) : (
         <>
           <h1 className="lg:text-3xl text-2xl text-red-500  font-bold m-5">
-            You're not logged in
+            You&apos;re not logged in
           </h1>
           <div className="flex space-x-5">
             <button
