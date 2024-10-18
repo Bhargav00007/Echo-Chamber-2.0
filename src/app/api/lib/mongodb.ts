@@ -8,15 +8,15 @@ if (!MONGODB_URI) {
 
 // Declare a custom type for the global object
 declare global {
-  // Adding an underscore to avoid conflict with other mongoose definitions
+  // Extending the global object with a custom '_mongoose' property
   var _mongoose: {
     conn: mongoose.Connection | null;
     promise: Promise<mongoose.Connection> | null;
   };
 }
 
-// Use let or const to declare the global variable, not var
-const cached = global._mongoose || { conn: null, promise: null };
+// Initialize the global object if it doesn't exist
+let cached = global._mongoose || { conn: null, promise: null };
 
 async function dbConnect() {
   if (cached.conn) {
@@ -30,11 +30,12 @@ async function dbConnect() {
       })
       .then((mongoose) => mongoose.connection);
   }
+
   cached.conn = await cached.promise;
   return cached.conn;
 }
 
-// Assign to global object
+// Assign the updated cached object back to the global scope
 global._mongoose = cached;
 
 export default dbConnect;
