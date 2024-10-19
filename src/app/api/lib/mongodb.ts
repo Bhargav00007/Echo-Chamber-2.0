@@ -6,17 +6,15 @@ if (!MONGODB_URI) {
   throw new Error("Please define the MONGODB_URI environment variable");
 }
 
-// Declare a custom type for the global object
-declare global {
-  // Extending the global object with a custom '_mongoose' property
-  var _mongoose: {
-    conn: mongoose.Connection | null;
-    promise: Promise<mongoose.Connection> | null;
-  };
+// TypeScript assertion to tell the compiler the type of global._mongoose
+interface MongooseCache {
+  conn: mongoose.Connection | null;
+  promise: Promise<mongoose.Connection> | null;
 }
 
-// Initialize the global object if it doesn't exist
-let cached = global._mongoose || { conn: null, promise: null };
+// Cast global._mongoose as MongooseCache or initialize it
+const cached = (global as typeof global & { _mongoose: MongooseCache })
+  ._mongoose || { conn: null, promise: null };
 
 async function dbConnect() {
   if (cached.conn) {
@@ -36,6 +34,6 @@ async function dbConnect() {
 }
 
 // Assign the updated cached object back to the global scope
-global._mongoose = cached;
+(global as typeof global & { _mongoose: MongooseCache })._mongoose = cached;
 
 export default dbConnect;
