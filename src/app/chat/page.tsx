@@ -170,6 +170,8 @@ const Chat = () => {
               <img
                 src={msg.userImage}
                 alt={msg.userName}
+                width={500}
+                height={500}
                 className="h-[40px] w-[40px] rounded-full"
               />
               <div className="flex-grow">
