@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import NextTopLoader from "nextjs-toploader";
+
 import localFont from "next/font/local";
 import "./globals.css";
 import SessionWrapper from "../../components/SessionWrapper";
@@ -34,9 +36,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SessionWrapper>
+          <NextTopLoader showSpinner={false} />
           <Navbar />
           {children}
         </SessionWrapper>
+
         <Script
           src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"
           strategy="beforeInteractive"
