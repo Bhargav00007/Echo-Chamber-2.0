@@ -132,7 +132,7 @@ const Chat = () => {
       <div className="max-w-7xl mx-auto my-12 space-y-5">
         <button
           type="button"
-          className=" flex  px-3 py-2 mx-5 border mt-24 "
+          className=" flex  px-3 py-2 mx-5 border mt-24  rounded-full"
           disabled
         >
           <ImSpinner2 className="animate-spin h-5 w-5 mr-3" />
