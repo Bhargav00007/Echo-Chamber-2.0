@@ -14,7 +14,7 @@ const Dashboard = () => {
         <>
           <img
             src={session.user?.image as string}
-            className="rounded-full h-20 w-20 border-2 border-black"
+            className="rounded-full h-20 w-20 border"
           ></img>
           <h1 className="lg:text-3xl text-2xl text-green-500 font-bold">
             Welcome back, {session.user?.name}
@@ -24,7 +24,7 @@ const Dashboard = () => {
           </p>
           <button
             onClick={() => signOut()}
-            className="border border-black rounded-lg bg-red-400 px-5 py-1 my-2 hover:bg-transparent transition-all duration-300"
+            className="border  bg-rose-700 px-5 py-1 my-2 hover:bg-transparent transition-all duration-300"
           >
             Sign Out
           </button>

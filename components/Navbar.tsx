@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export const Navbar = () => {
   const { data: session } = useSession();
@@ -10,6 +11,10 @@ export const Navbar = () => {
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   };
+
+  const pathname = usePathname();
+
+  const isActive = (path: string) => pathname === path;
 
   return (
     <nav className="bg-white border-gray-200 dark:bg-black relative z-10 sticky top-0">
@@ -41,7 +46,6 @@ export const Navbar = () => {
                   className="rounded-full h-10 w-10 border-2 border-black"
                 />
               </button>
-
               {/* Dropdown menu */}
               {isDropdownOpen && (
                 <div className="absolute top-14 right-0 mt-2 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow-lg dark:bg-gray-700 dark:divide-gray-600">
@@ -94,7 +98,7 @@ export const Navbar = () => {
           <button
             data-collapse-toggle="navbar-user"
             type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none  dark:text-gray-400 dark:hover:bg-gray-700 "
+            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-700 "
             aria-controls="navbar-user"
             aria-expanded="false"
           >
@@ -120,12 +124,15 @@ export const Navbar = () => {
           className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
           id="navbar-user"
         >
-          <ul className="flex flex-col font-medium p-4 md:p-0 mt-4  rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-black md:dark:bg-transparent ">
+          <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-black md:dark:bg-transparent">
             <li>
               <Link
                 href="/Home"
-                className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
-                aria-current="page"
+                className={`block py-2 px-3 rounded md:bg-transparent hover:text-blue-300 ${
+                  isActive("/Home")
+                    ? "text-blue-500 glow"
+                    : "text-gray-700 dark:text-gray-200"
+                } hover:bg-gray-100 md:hover:bg-transparent`}
               >
                 Home
               </Link>
@@ -133,7 +140,9 @@ export const Navbar = () => {
             <li>
               <Link
                 href="#"
-                className="block py-2 px-3 text-transparent rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                className={`block py-2 px-3 rounded hover:text-blue-300 ${
+                  isActive("#") ? "text-blue-500 glow" : "text-white"
+                } hover:bg-gray-100 md:hover:bg-transparent`}
               >
                 About
               </Link>
@@ -141,7 +150,9 @@ export const Navbar = () => {
             <li>
               <Link
                 href="/game"
-                className="block py-2 px-3 text-transparent rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                className={`block py-2 px-3 rounded hover:text-blue-300 ${
+                  isActive("/game") ? "text-blue-500 glow" : "text-white"
+                } hover:bg-gray-100 md:hover:bg-transparent`}
               >
                 Games
               </Link>
@@ -149,15 +160,19 @@ export const Navbar = () => {
             <li>
               <Link
                 href="/chat"
-                className="block py-2 px-3 text-transparent rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                className={`block py-2 px-3 rounded hover:text-blue-300 ${
+                  isActive("/chat") ? "text-blue-500 glow" : "text-white"
+                } hover:bg-gray-100 md:hover:bg-transparent`}
               >
                 Chat
               </Link>
             </li>
             <li>
               <Link
-                href="#"
-                className="block py-2 px-3 text-transparent rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                href="/Dashboard"
+                className={`block py-2 px-3 rounded hover:text-blue-300 ${
+                  isActive("/Dashboard") ? "text-blue-500 glow" : "text-white"
+                } hover:bg-gray-100 md:hover:bg-transparent`}
               >
                 Dashboard
               </Link>

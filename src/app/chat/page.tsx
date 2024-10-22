@@ -138,7 +138,7 @@ const Chat = () => {
           <ImSpinner2 className="animate-spin h-5 w-5 mr-3" />
           Loading Message...
         </button>
-        <p className="text-lg  py-2  mx-5">
+        <p className="text-base  py-2  mx-5">
           ( You need to be logged in to view messages... )
         </p>
       </div>
