@@ -30,7 +30,7 @@ const Chat = () => {
   useEffect(() => {
     if (status === "authenticated") {
       fetchMessages();
-      scrollToBottom(); // Scroll to bottom on first load
+      scrollToBottom();
 
       const intervalId = setInterval(() => {
         fetchMessages(false);
@@ -132,14 +132,14 @@ const Chat = () => {
       <div className="max-w-7xl mx-auto my-12 space-y-5">
         <button
           type="button"
-          className="bg-indigo-500 flex rounded-xl px-3 py-2 mx-5 border border-black"
+          className=" flex  px-3 py-2 mx-5 border mt-24 "
           disabled
         >
           <ImSpinner2 className="animate-spin h-5 w-5 mr-3" />
           Loading Message...
         </button>
-        <p className="text-lg  py-5  mx-5">
-          You need to be logged in to view messages...
+        <p className="text-lg  py-2  mx-5">
+          ( You need to be logged in to view messages... )
         </p>
       </div>
     );

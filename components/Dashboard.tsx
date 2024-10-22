@@ -2,6 +2,8 @@
 
 import { signIn, signOut, useSession } from "next-auth/react";
 import React from "react";
+import { FcGoogle } from "react-icons/fc";
+import { SiGithub } from "react-icons/si";
 
 const Dashboard = () => {
   const { data: session } = useSession();
@@ -35,15 +37,15 @@ const Dashboard = () => {
           <div className="flex space-x-5">
             <button
               onClick={() => signIn("google")}
-              className="border border-black rounded-lg px-5 py-1 hover:bg-gray-100 transition-all duration-300"
+              className="border  rounded-full px-10 py-1 bg-gray-300 hover:bg-gray-100 transition-all duration-300"
             >
-              Sign in with Google
+              Sign in <FcGoogle className="inline-flex ml-1 mb-1" />
             </button>
             <button
               onClick={() => signIn("github")}
-              className="border border-black rounded-lg bg-green-500 px-5 py-1 hover:bg-transparent transition-all duration-300"
+              className="border  rounded-full bg-green-500 px-10 py-1 hover:bg-gray-100 transition-all duration-300"
             >
-              Sign in with GitHub
+              Sign in <SiGithub className="inline-flex ml-1 mb-1" />
             </button>
           </div>
         </>
