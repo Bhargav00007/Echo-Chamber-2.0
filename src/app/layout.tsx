@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import NextTopLoader from "nextjs-toploader";
-
-import localFont from "next/font/local";
 import "./globals.css";
 import SessionWrapper from "../../components/SessionWrapper";
 import { Navbar } from "../../components/Navbar";

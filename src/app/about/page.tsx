@@ -9,9 +9,9 @@ const About = () => {
       <p className="lg:text-xl text-lg mt-5 first-letter:text-4xl">
         EchoChamber is a cutting-edge online chat platform designed to help you
         stay connected with your friends, family, and communities in real-time.
-        Whether you're looking to share moments, collaborate on projects, or
-        engage in meaningful conversations, EchoChamber provides a seamless and
-        immersive chatting experience.
+        Whether you&apos;re looking to share moments, collaborate on projects,
+        or engage in meaningful conversations, EchoChamber provides a seamless
+        and immersive chatting experience.
       </p>
       <h1 className="lg:text-4xl text-2xl font-bold underline decoration-sky-500 mt-10 lg:mt-20">
         Tech Used (Packages/Libraries)
