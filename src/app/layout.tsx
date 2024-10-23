@@ -6,18 +6,7 @@ import "./globals.css";
 import SessionWrapper from "../../components/SessionWrapper";
 import { Navbar } from "../../components/Navbar";
 import Script from "next/script";
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+import { dmSans, poppins } from "../app/fonts/fonts";
 
 export const metadata: Metadata = {
   title: "Echo Chamber",
@@ -33,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${dmSans.variable} ${poppins.variable} antialiased font-dmSans`}
       >
         <SessionWrapper>
           <NextTopLoader showSpinner={false} />

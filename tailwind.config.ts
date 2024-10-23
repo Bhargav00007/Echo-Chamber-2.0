@@ -15,6 +15,10 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        poppins: ["var(--poppins-font)"],
+        dmSans: ["var(--dm_sans-font)"],
+      },
     },
   },
   plugins: [],

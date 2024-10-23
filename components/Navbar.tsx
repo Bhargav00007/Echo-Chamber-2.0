@@ -23,7 +23,7 @@ export const Navbar = () => {
           href="/"
           className="flex items-center space-x-3 rtl:space-x-reverse"
         >
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white font-poppins">
             EchoChamber
           </span>
         </Link>
@@ -139,9 +139,9 @@ export const Navbar = () => {
             </li>
             <li>
               <Link
-                href="#"
+                href="/about"
                 className={`block py-2 px-3 rounded hover:text-blue-300 ${
-                  isActive("#") ? "text-blue-500 glow" : "text-white"
+                  isActive("/about") ? "text-blue-500 glow" : "text-white"
                 } hover:bg-gray-100 md:hover:bg-transparent`}
               >
                 About
