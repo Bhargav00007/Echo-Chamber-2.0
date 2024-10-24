@@ -1,7 +1,6 @@
 "use client";
-
+import React, { useState, useEffect, useRef } from "react";
 import { useSession, getSession } from "next-auth/react";
-import { useState, useEffect, useRef } from "react";
 import { ImSpinner2 } from "react-icons/im";
 
 interface ExtendedUser {
@@ -23,6 +22,7 @@ const Chat = () => {
   const [message, setMessage] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [sending, setSending] = useState<boolean>(false); // State to manage sending state
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const messagesContainerRef = useRef<HTMLDivElement | null>(null);
   const userScrolled = useRef<boolean>(false);
@@ -62,6 +62,8 @@ const Chat = () => {
   const sendMessage = async () => {
     if (!message.trim()) return;
 
+    setSending(true); // Disable the send button
+
     const currentSession = await getSession();
 
     if (!currentSession?.user) {
@@ -98,6 +100,11 @@ const Chat = () => {
     }
 
     setMessage(""); // Clear input
+
+    // Re-enable the button after 2 seconds
+    setTimeout(() => {
+      setSending(false);
+    }, 2000);
   };
 
   const scrollToBottom = () => {
@@ -201,8 +208,9 @@ const Chat = () => {
         <button
           onClick={sendMessage}
           className="bg-indigo-600 text-white px-4 py-2 rounded-lg"
+          disabled={sending} // Disable button when sending
         >
-          Send
+          {sending ? "Sending..." : "Send"}
         </button>
       </div>
     </div>
