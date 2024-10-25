@@ -24,7 +24,7 @@ const Dashboard = () => {
           </p>
           <button
             onClick={() => signOut()}
-            className="border  bg-rose-700 px-5 py-1 my-2 hover:bg-transparent transition-all duration-300"
+            className="border  bg-rose-400 px-5 py-1 my-2 hover:bg-transparent transition-all duration-300 rounded-lg"
           >
             Sign Out
           </button>
