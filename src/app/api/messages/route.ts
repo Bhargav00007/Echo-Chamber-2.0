@@ -5,7 +5,7 @@ import dbConnect from "../lib/mongodb";
 export async function GET() {
   try {
     await dbConnect();
-    const messages = await Message.find({}).sort({ createdAt: 1 }).limit(50);
+    const messages = await Message.find({}).sort({ createdAt: 1 });
     return NextResponse.json(messages);
   } catch (error) {
     console.error("Error fetching messages:", error);
