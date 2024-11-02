@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { signOut, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -60,7 +60,7 @@ export const Navbar = () => {
                   <ul className="py-2">
                     <li>
                       <a
-                        href="/Dashboard"
+                        href="dashboard"
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                       >
                         Dashboard
@@ -90,9 +90,12 @@ export const Navbar = () => {
             </>
           ) : (
             <div>
-              <h1 className="lg:text-base text-xs text-red-500 font-bold">
-                You&apos;re not logged in
-              </h1>
+              <button
+                onClick={() => signIn("google")}
+                className=" rounded-lg  px-3 py-1 bg-blue-700 hover:bg-gray-100 transition-all duration-200 font-poppins"
+              >
+                Log in
+              </button>
             </div>
           )}
           <button
@@ -169,9 +172,9 @@ export const Navbar = () => {
             </li>
             <li>
               <Link
-                href="/Dashboard"
+                href="/dashboard"
                 className={`block py-2 px-3 rounded hover:text-blue-300 ${
-                  isActive("/Dashboard") ? "text-blue-500 glow" : "text-white"
+                  isActive("/dashboard") ? "text-blue-500 glow" : "text-white"
                 } hover:bg-gray-100 md:hover:bg-transparent`}
               >
                 Dashboard

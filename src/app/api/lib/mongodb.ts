@@ -6,13 +6,11 @@ if (!MONGODB_URI) {
   throw new Error("Please define the MONGODB_URI environment variable");
 }
 
-// TypeScript assertion to tell the compiler the type of global._mongoose
 interface MongooseCache {
   conn: mongoose.Connection | null;
   promise: Promise<mongoose.Connection> | null;
 }
 
-// Cast global._mongoose as MongooseCache or initialize it
 const cached = (global as typeof global & { _mongoose: MongooseCache })
   ._mongoose || { conn: null, promise: null };
 
