@@ -17,7 +17,7 @@ const Dashboard = () => {
             className="rounded-full h-20 w-20 border"
           ></img>
           <h1 className="lg:text-3xl text-2xl text-green-500 font-bold">
-            Welcome back, {session.user?.name}
+            Welcome, {session.user?.name}
           </h1>
           <p className="lg:text-2xl text-xl font-semibold">
             {session.user?.email}

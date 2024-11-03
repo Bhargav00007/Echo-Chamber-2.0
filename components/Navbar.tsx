@@ -92,7 +92,7 @@ export const Navbar = () => {
             <div>
               <button
                 onClick={() => signIn("google")}
-                className=" rounded-lg  px-3 py-1 bg-blue-700 hover:bg-gray-100 transition-all duration-200 font-poppins"
+                className=" rounded-lg  px-3 py-1 bg-rose-900 text-white hover:bg-rose-500  transition-all duration-200 font-poppins"
               >
                 Log in
               </button>
