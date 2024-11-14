@@ -17,7 +17,7 @@ export const Navbar = () => {
   const isActive = (path: string) => pathname === path;
 
   return (
-    <nav className="bg-white border-gray-200 dark:bg-black relative z-10 sticky top-0">
+    <nav className=" border-gray-200 bg-black relative z-10 sticky top-0">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link
           href="/"
@@ -48,7 +48,7 @@ export const Navbar = () => {
               </button>
               {/* Dropdown menu */}
               {isDropdownOpen && (
-                <div className="absolute top-14 right-0 mt-2 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow-lg dark:bg-gray-700 dark:divide-gray-600">
+                <div className="absolute top-14 right-0 mt-2 w-48  divide-y divide-gray-100 rounded-lg shadow-lg bg-gray-700 dark:divide-gray-600">
                   <div className="px-4 py-3">
                     <span className="block text-sm text-transparent dark:text-white">
                       {session.user?.name}
@@ -127,7 +127,7 @@ export const Navbar = () => {
           className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
           id="navbar-user"
         >
-          <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-black md:dark:bg-transparent">
+          <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-black dark:bg-black md:dark:bg-transparent">
             <li>
               <Link
                 href="/Home"
@@ -135,7 +135,7 @@ export const Navbar = () => {
                   isActive("/Home")
                     ? "text-blue-500 glow"
                     : "text-gray-700 dark:text-gray-200"
-                } hover:bg-gray-100 md:hover:bg-transparent`}
+                } hover:bg-gray-700 md:hover:bg-transparent`}
               >
                 Home
               </Link>
@@ -145,7 +145,7 @@ export const Navbar = () => {
                 href="/about"
                 className={`block py-2 px-3 rounded hover:text-blue-300 ${
                   isActive("/about") ? "text-blue-500 glow" : "text-white"
-                } hover:bg-gray-100 md:hover:bg-transparent`}
+                } hover:bg-gray-700 md:hover:bg-transparent`}
               >
                 About
               </Link>
@@ -155,7 +155,7 @@ export const Navbar = () => {
                 href="/game"
                 className={`block py-2 px-3 rounded hover:text-blue-300 ${
                   isActive("/game") ? "text-blue-500 glow" : "text-white"
-                } hover:bg-gray-100 md:hover:bg-transparent`}
+                } hover:bg-gray-700 md:hover:bg-transparent`}
               >
                 Games
               </Link>
@@ -165,7 +165,7 @@ export const Navbar = () => {
                 href="/chat"
                 className={`block py-2 px-3 rounded hover:text-blue-300 ${
                   isActive("/chat") ? "text-blue-500 glow" : "text-white"
-                } hover:bg-gray-100 md:hover:bg-transparent`}
+                } hover:bg-gray-700 md:hover:bg-transparent`}
               >
                 Chat
               </Link>
@@ -175,7 +175,7 @@ export const Navbar = () => {
                 href="/dashboard"
                 className={`block py-2 px-3 rounded hover:text-blue-300 ${
                   isActive("/dashboard") ? "text-blue-500 glow" : "text-white"
-                } hover:bg-gray-100 md:hover:bg-transparent`}
+                } hover:bg-gray-700 md:hover:bg-transparent`}
               >
                 Dashboard
               </Link>
