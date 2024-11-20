@@ -159,7 +159,7 @@ const Chat = () => {
   }
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen max-w-7xl mx-auto my-12 space-y-5">
       <h2 className="text-center text-xl py-4">Chat Chamber</h2>
 
       {/* Messages container */}
