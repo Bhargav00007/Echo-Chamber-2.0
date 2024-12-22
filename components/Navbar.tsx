@@ -17,7 +17,7 @@ export const Navbar = () => {
   const isActive = (path: string) => pathname === path;
 
   return (
-    <nav className=" border-gray-200 bg-black relative z-10 sticky top-0">
+    <nav className=" border-gray-200 bg-black  relative z-10 ">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link
           href="/"
